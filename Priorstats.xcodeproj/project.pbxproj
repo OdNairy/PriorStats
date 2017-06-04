@@ -11,11 +11,11 @@
 		FE6DB4E81EE4894F0054802F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE6DB4E21EE4894F0054802F /* Assets.xcassets */; };
 		FE6DB4E91EE4894F0054802F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE6DB4E31EE4894F0054802F /* LaunchScreen.storyboard */; };
 		FE6DB4EA1EE4894F0054802F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE6DB4E51EE4894F0054802F /* Main.storyboard */; };
-		FE6DB4EB1EE4894F0054802F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE6DB4E71EE4894F0054802F /* Info.plist */; };
 		FE6DB4EF1EE489580054802F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6DB4ED1EE489580054802F /* AppDelegate.swift */; };
 		FE6DB4F01EE489580054802F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6DB4EE1EE489580054802F /* ViewController.swift */; };
 		FE6DB4F61EE489630054802F /* PriorstatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6DB4F31EE4895F0054802F /* PriorstatsTests.swift */; };
 		FE6DB4F91EE48D800054802F /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6DB4F81EE48D800054802F /* R.generated.swift */; };
+		FE6DB4FB1EE48EC70054802F /* PriorbankAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6DB4FA1EE48EC70054802F /* PriorbankAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +43,7 @@
 		FE6DB4F21EE4895F0054802F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE6DB4F31EE4895F0054802F /* PriorstatsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorstatsTests.swift; sourceTree = "<group>"; };
 		FE6DB4F81EE48D800054802F /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		FE6DB4FA1EE48EC70054802F /* PriorbankAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorbankAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +120,7 @@
 			children = (
 				FE6DB4ED1EE489580054802F /* AppDelegate.swift */,
 				FE6DB4EE1EE489580054802F /* ViewController.swift */,
+				FE6DB4FA1EE48EC70054802F /* PriorbankAPI.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -221,7 +223,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE6DB4EB1EE4894F0054802F /* Info.plist in Resources */,
 				FE6DB4EA1EE4894F0054802F /* Main.storyboard in Resources */,
 				FE6DB4E81EE4894F0054802F /* Assets.xcassets in Resources */,
 				FE6DB4E91EE4894F0054802F /* LaunchScreen.storyboard in Resources */,
@@ -308,6 +309,7 @@
 				FE6DB4F01EE489580054802F /* ViewController.swift in Sources */,
 				FE6DB4EF1EE489580054802F /* AppDelegate.swift in Sources */,
 				FE6DB4F91EE48D800054802F /* R.generated.swift in Sources */,
+				FE6DB4FB1EE48EC70054802F /* PriorbankAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
