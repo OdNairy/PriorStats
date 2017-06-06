@@ -189,6 +189,7 @@
 					FE6DB4BB1EE4887D0054802F = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 53APD5F9YQ;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					FE6DB4CF1EE4887D0054802F = {
@@ -456,7 +457,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gardukevich.Priorstats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -470,7 +472,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gardukevich.Priorstats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
