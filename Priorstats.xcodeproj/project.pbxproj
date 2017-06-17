@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AE32B3E9AC81296262D3BE42 /* Pods_Priorstats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1811308BA56A4B3FF00F016E /* Pods_Priorstats.framework */; };
+		FE46A83C1EF4491F006CDD14 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE46A83B1EF4491F006CDD14 /* Transaction.swift */; };
 		FE46A8401EF54522006CDD14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE46A83F1EF54333006CDD14 /* GoogleService-Info.plist */; };
 		FE6DB4E81EE4894F0054802F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE6DB4E21EE4894F0054802F /* Assets.xcassets */; };
 		FE6DB4E91EE4894F0054802F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE6DB4E31EE4894F0054802F /* LaunchScreen.storyboard */; };
@@ -33,6 +34,7 @@
 		1811308BA56A4B3FF00F016E /* Pods_Priorstats.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Priorstats.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		659A0D0FD7D4C45182586C6C /* Pods-Priorstats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Priorstats.release.xcconfig"; path = "Pods/Target Support Files/Pods-Priorstats/Pods-Priorstats.release.xcconfig"; sourceTree = "<group>"; };
 		79507121D169BDD51DE57650 /* Pods-Priorstats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Priorstats.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Priorstats/Pods-Priorstats.debug.xcconfig"; sourceTree = "<group>"; };
+		FE46A83B1EF4491F006CDD14 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		FE46A83F1EF54333006CDD14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FE6DB4BC1EE4887D0054802F /* Priorstats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Priorstats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6DB4D01EE4887D0054802F /* PriorstatsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriorstatsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +126,7 @@
 				FE6DB4ED1EE489580054802F /* AppDelegate.swift */,
 				FE6DB4EE1EE489580054802F /* ViewController.swift */,
 				FE6DB4FA1EE48EC70054802F /* PriorbankAPI.swift */,
+				FE46A83B1EF4491F006CDD14 /* Transaction.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				FE6DB4EF1EE489580054802F /* AppDelegate.swift in Sources */,
 				FE6DB4F91EE48D800054802F /* R.generated.swift in Sources */,
 				FE6DB4FB1EE48EC70054802F /* PriorbankAPI.swift in Sources */,
+				FE46A83C1EF4491F006CDD14 /* Transaction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
