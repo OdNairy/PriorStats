@@ -12,6 +12,11 @@ target "Priorstats" do
     
     pod 'RxSwift'
     pod 'RxCocoa'
+    pod 'RxDataSources'
+    pod 'PKHUD'
+    pod 'SideMenu'
+    
+    pod 'Reveal-SDK', :configuration => ['Debug']
     
     pod 'GoogleAPIClientForREST/Sheets', '~> 1.2.1'
     pod 'Google/SignIn', '~> 3.0.3'

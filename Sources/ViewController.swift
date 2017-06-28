@@ -13,16 +13,14 @@ import RxCocoa
 import SwiftyJSON
 import GoogleAPIClientForREST
 import GoogleSignIn
+import PKHUD
 
 class ViewController: UIViewController, GIDSignInUIDelegate {
-    let apiClient = PriorbankAPIClient()
+    let apiClient = PriorbankAPIClient.shared
     
-    
-    var transactions = Variable<[Transaction]>([])
+    var cards = Variable<[Card]>([])
     let disposeBag = DisposeBag()
     
-    // If modifying these scopes, delete your previously saved credentials by
-    // resetting the iOS simulator or uninstall the app.
     fileprivate let scopes = [kGTLRAuthScopeSheetsSpreadsheetsReadonly, kGTLRAuthScopeSheetsSpreadsheets]
     
     fileprivate let service = GTLRSheetsService()
@@ -31,16 +29,14 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
     
     let googleAuthReady = BehaviorSubject(value: false)
     
+    
     @IBOutlet var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().scopes = scopes
-//        GIDSignIn.sharedInstance().signInSilently()
-//        GIDSignIn.sharedInstance().signIn()
         
         let signIn = GIDSignIn.sharedInstance()!
         if signIn.hasAuthInKeychain() {
@@ -60,17 +56,20 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
         output.isHidden = true
         view.addSubview(output);
         
-        tableView.removeFromSuperview()
         apiClient
-            .login(username: "OdNairy", password: "", useCacheIfAvailable: false)
-            .then { transactions -> Void in
-                self.transactions.value = transactions
+            .login(username: "OdNairy", password: "", useCacheIfAvailable: true)
+            .then { cards -> Void in
+                self.cards.value = cards
             }.always {}
         
         tableView.estimatedRowHeight = 40
         tableView.rowHeight = UITableViewAutomaticDimension
-        transactions
-            .asObservable()
+        
+        let transactionsObservable = cards.asObservable()
+            .map { cards -> [Transaction]  in
+                cards.flatMap{$0.transactions}.sorted(by: {  $0.postingDate >= $1.postingDate })
+            }
+        transactionsObservable
             .bind(to: tableView.rx.items(cellIdentifier: R.reuseIdentifier.transcationCell.identifier)){ _, transaction, cell in
                 guard let cell = cell as? TransactionCell else {return}
                 cell.titleLabel.text = self.prettyDateFormatter.string(from: transaction.postingDate)
@@ -81,15 +80,13 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
                 cell.descriptionLabel.text = transaction.details
             }.addDisposableTo(disposeBag)
         
-        Observable
-            .zip(transactions.asObservable(), googleAuthReady.asObservable())
-            .skip(1)
-            .subscribe(onNext: { transactions, authReady in
-            guard authReady else {return}
-            self.add(transactions: transactions)
-            
-        }).addDisposableTo(disposeBag)
-        // Do any additional setup after loading the view, typically from a nib.
+//        Observable
+//            .zip(cards.asObservable(), googleAuthReady.asObservable())
+//            .skip(1)
+//            .subscribe(onNext: { cards, authReady in
+//                guard authReady else {return}
+//                self.export(cards: cards)
+//            }).addDisposableTo(disposeBag)
     }
     
     lazy var prettyDateFormatter: DateFormatter = {
@@ -136,8 +133,11 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
         }
     }
     
+    @IBAction func exportData(_ sender: UIBarButtonItem) {
+        export(cards: cards.value)
+    }
     
-    func add(transactions: [Transaction]) {
+    func export(cards: [Card]) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
         
@@ -145,22 +145,34 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
         numberFormatter.minimumFractionDigits = 2
         numberFormatter.maximumFractionDigits = 2
         numberFormatter.numberStyle = .decimal
+        numberFormatter.decimalSeparator = "."
         
-        func transactionToValues(trans: Transaction) -> [String]{
-            numberFormatter.currencyCode = trans.currencyISO
+        func transactionToValues(trans: Transaction, card: Card) -> [String]{
+            
             let amountString = numberFormatter.string(from: trans.amount) ?? ""
             
-            numberFormatter.currencyCode = "USD"
+            
             let accountAmountString = numberFormatter.string(from: trans.accountAmount) ?? ""
             return [dateFormatter.string(from: trans.postingDate),
+                    trans.details,
                     amountString,
+                    trans.currencyISO,
                     accountAmountString,
-                    trans.details]
+                    card.currencyCode
+            ]
         }
         
+        let transactions = cards
+            .flatMap {card in card.transactions.map {(transaction: $0, card: card)} }
+            .sorted { $0.transaction.postingDate >= $1.transaction.postingDate }
+        
+        let todayString = dateFormatter.string(from: Date())
+        
         let values = GTLRSheets_ValueRange()
-        values.values = transactions.map(transactionToValues)
-
+        var valuesToSend = [["Дата","Операция","Сумма","Валюта", "Оборот", "Валюта", "", "Синхронизированно:", todayString]]
+        valuesToSend.append(contentsOf: transactions.map(transactionToValues))
+        values.values = valuesToSend
+        
         
         let query = GTLRSheetsQuery_SpreadsheetsValuesAppend.query(withObject: values, spreadsheetId: spreadsheetsId, range: "'My title'!A:A")
         query.valueInputOption = kGTLRSheetsValueInputOptionUserEntered
@@ -171,6 +183,23 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
             }
             guard let response = result as? GTLRSheets_AppendValuesResponse else {return}
             print(response)
+            
+            let request = GTLRSheets_Request()
+            request.autoResizeDimensions = GTLRSheets_AutoResizeDimensionsRequest()
+            let dimensions = GTLRSheets_DimensionRange()
+            dimensions.dimension = kGTLRSheets_DimensionRange_Dimension_Columns
+            dimensions.startIndex = NSNumber(value: 0)
+            dimensions.endIndex = NSNumber(value: 16)
+            dimensions.sheetId = NSNumber(value: 1030324855)
+            request.autoResizeDimensions?.dimensions = dimensions
+            
+            let batchRequest = GTLRSheets_BatchUpdateSpreadsheetRequest()
+            batchRequest.requests = [request]
+            let query = GTLRSheetsQuery_SpreadsheetsBatchUpdate.query(withObject: batchRequest, spreadsheetId: self.spreadsheetsId)
+            
+            self.service.executeQuery(query, completionHandler: { (_, response, error) in
+                print(response)
+            })
         }
     }
     
@@ -206,7 +235,7 @@ extension ViewController: GIDSignInDelegate {
             self.googleAuthReady.onNext(false)
         } else {
             self.signInButton.isHidden = true
-            self.output.isHidden = false
+//            self.output.isHidden = false
             self.service.authorizer = user.authentication.fetcherAuthorizer()
             self.googleAuthReady.onNext(true)
 //            listMajors()

@@ -12,34 +12,32 @@ import PromiseKit
 import SwiftyJSON
 import CryptoSwift
 import SwiftDate
-
+import RxSwift
 
 class PriorbankAPIClient {
+    public static let shared = PriorbankAPIClient()
     private var session: String?
     private var token: String?
     private var clientSecret: String?
     
+    public var lastData = Variable<[Card]>([])
+    
     @discardableResult
-    func login(username: String, password: String, useCacheIfAvailable: Bool = true) -> Promise<[Transaction]>{
-//        Promise { (success, failure) in
-//
-//        }
+    func login(username: String, password: String, useCacheIfAvailable: Bool = true) -> Promise<[Card]>{
         let api = PriorbankAPI()
         
-        var mobileTokens: PriorbankAPI.MobileTokenData?
         let path = FileManager.default.temporaryDirectory.appendingPathComponent("transactions.json")
         let data = try? Data.init(contentsOf: path)
         if let data = data, useCacheIfAvailable == true {
             let json = JSON(data: data)
-            let transactionsJSON = json.arrayValue.flatMap{$0["contract"]["account"]["transCardList"].arrayValue.flatMap{ $0["transactionList"].arrayValue }}
-            let transactions = transactionsJSON.flatMap(Transaction.init).sorted(by: {  $0.postingDate >= $1.postingDate })
-            return Promise(value: transactions)
+            let cards = parseCards(json)
+            lastData.value = cards
+            return Promise(value: cards)
         }
         
         let transactionsPromise: Promise<JSON> = api.mobileToken().then { tokens -> Promise<PriorbankAPI.SaltData> in
             self.clientSecret = tokens.secret
             self.token = tokens.token
-            mobileTokens = tokens
             return api.getServerSalt(token: tokens.token, secret: tokens.secret, username: username)
         }.then { salt -> Promise<PriorbankAPI.LoginData> in
             guard let secret = self.clientSecret, let token = self.token else {throw "Secret and Token should exist on login stage"}
@@ -52,16 +50,45 @@ class PriorbankAPIClient {
             return api.cardsHistory(fromDate: fromDate, toDate: toDate, session: loginData.session, token: loginData.token)
         }
         
-        return transactionsPromise.then{ json -> [Transaction] in
+        return transactionsPromise.then{ json -> [Card] in
             try json.rawData().write(to: path)
             
-            
-            let transactionsJSON = json.arrayValue.flatMap{$0["contract"]["account"]["transCardList"].arrayValue.flatMap{ $0["transactionList"].arrayValue }}
-            let transactions = transactionsJSON.flatMap(Transaction.init)
-            
-            return transactions.sorted(by: {  $0.postingDate >= $1.postingDate })
+            var cards = [Card]()
+            for card in json.arrayValue{
+                let transactionsRawJSON = card["contract"]["account"]["transCardList"].array?.flatMap { $0["transactionList"].arrayValue}
+                
+                guard let id = card["id"].int,
+                    let cardType = card["contract"]["cardType"].string,
+                    let isoCode = card["contract"]["contractCurrIso"].string,
+                    let amount = card["contract"]["amountAvailable"].double,
+                    let transactionsJSON = transactionsRawJSON
+                    else { continue }
+                let transactions = transactionsJSON.flatMap(Transaction.init)
+                let card = Card(id: id, cardType: cardType, currencyCode: isoCode, availableAmount: amount, transactions: transactions)
+                cards.append(card)
+            }
+            self.lastData.value = cards
+            return cards
         }
         
+    }
+    
+    func parseCards(_ json: JSON) -> [Card]{
+        var cards = [Card]()
+        for card in json.arrayValue{
+            let transactionsRawJSON = card["contract"]["account"]["transCardList"].array?.flatMap { $0["transactionList"].arrayValue}
+            
+            guard let id = card["id"].int,
+                let cardType = card["contract"]["cardType"].string,
+                let isoCode = card["contract"]["contractCurrIso"].string,
+                let amount = card["contract"]["amountAvailable"].double,
+                let transactionsJSON = transactionsRawJSON
+                else { continue }
+            let transactions = transactionsJSON.flatMap(Transaction.init).sorted(by: {  $0.postingDate >= $1.postingDate })
+            let card = Card(id: id, cardType: cardType, currencyCode: isoCode, availableAmount: amount, transactions: transactions)
+            cards.append(card)
+        }
+        return cards
     }
 }
 extension String: Error {}

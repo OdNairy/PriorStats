@@ -17,11 +17,28 @@ struct UserAccount {
 
 
 /// Card or Salary contract
-struct Card {
+class Card {
+    var id: Int
+    var cardType: String
+    var currencyCode: String
+    var availableAmount: Double
     
+    var transactions: [Transaction]
+    
+    init(id: Int, cardType: String, currencyCode: String, availableAmount: Double, transactions: [Transaction]){
+        self.id = id
+        self.cardType = cardType
+        self.currencyCode = currencyCode
+        self.availableAmount = availableAmount
+        self.transactions = transactions
+        
+        self.transactions.forEach { (transaction) in
+            transaction.card = self
+        }
+    }
 }
 
-struct Transaction {
+class Transaction {
     var postingDate: Date
 //    var transactionDate: Date
 //    var transactionTime: String
@@ -32,10 +49,19 @@ struct Transaction {
     var accountAmount: Double
     var details: String
     
+    var card: Card?
+    
+    init(postingDate: Date, currencyISO: String, amount: Double, accountAmount: Double, details: String) {
+        self.postingDate = postingDate
+        self.currencyISO = currencyISO
+        self.amount = amount
+        self.accountAmount = accountAmount
+        self.details = details
+    }
 }
 
 extension Transaction {
-    init?(_ json: JSON){
+    convenience init?(_ json: JSON){
         let isoDateFormatter = ISO8601DateFormatter()
         isoDateFormatter.timeZone = TimeZone(abbreviation: "UTC+3")
         
@@ -45,10 +71,6 @@ extension Transaction {
               let accountAmount = json["accountAmount"].double,
               let details = json["transDetails"].string
         else { return nil }
-        self.postingDate = postingDate
-        self.currencyISO = currencyISO
-        self.amount = amount
-        self.accountAmount = accountAmount
-        self.details = details
+        self.init(postingDate: postingDate, currencyISO: currencyISO, amount: amount, accountAmount: accountAmount, details: details)
     }
 }
