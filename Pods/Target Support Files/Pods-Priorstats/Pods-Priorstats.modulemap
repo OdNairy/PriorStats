@@ -1,0 +1,6 @@
+framework module Pods_Priorstats {
+  umbrella header "Pods-Priorstats-umbrella.h"
+
+  export *
+  module * { export * }
+}
