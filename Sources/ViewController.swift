@@ -56,8 +56,9 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
         output.isHidden = true
         view.addSubview(output);
         
+        let password = ProcessInfo.processInfo.environment["PRIOR_PASSWORD"] ?? "<password>"
         apiClient
-            .login(username: "OdNairy", password: "", useCacheIfAvailable: true)
+            .login(username: "OdNairy", password: password, useCacheIfAvailable: true)
             .then { cards -> Void in
                 self.cards.value = cards
             }.always {}
@@ -68,7 +69,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
         let transactionsObservable = cards.asObservable()
             .map { cards -> [Transaction]  in
                 cards.flatMap{$0.transactions}.sorted(by: {  $0.postingDate >= $1.postingDate })
-            }
+        }
         transactionsObservable
             .bind(to: tableView.rx.items(cellIdentifier: R.reuseIdentifier.transcationCell.identifier)){ _, transaction, cell in
                 guard let cell = cell as? TransactionCell else {return}
@@ -79,14 +80,14 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
                 cell.priceLabel?.text = "\(transaction.amount) \(locale.currencySymbol ?? "")"
                 cell.descriptionLabel.text = transaction.details
             }.addDisposableTo(disposeBag)
-        
-//        Observable
-//            .zip(cards.asObservable(), googleAuthReady.asObservable())
-//            .skip(1)
-//            .subscribe(onNext: { cards, authReady in
-//                guard authReady else {return}
-//                self.export(cards: cards)
-//            }).addDisposableTo(disposeBag)
+        //        readSpreadsheets()
+        //        Observable
+        //            .zip(cards.asObservable(), googleAuthReady.asObservable())
+        //            .skip(1)
+        //            .subscribe(onNext: { cards, authReady in
+        //                guard authReady else {return}
+        //                self.export(cards: cards)
+        //            }).addDisposableTo(disposeBag)
     }
     
     lazy var prettyDateFormatter: DateFormatter = {
@@ -102,16 +103,16 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
     let spreadsheetsId = "1ej1KZpk0qrDWjdCW7dgtL5lucpIXi6owUknufg0dr4g"
     func listMajors() {
         output.text = "Getting sheet data..."
-//        let spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
-//        let range = "Class Data!A2:E"
-                
+        //        let spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+        //        let range = "Class Data!A2:E"
+        
         let addSheetRequest = GTLRSheets_AddSheetRequest()
         let properties = GTLRSheets_SheetProperties()
         properties.title = "My title"
-            let color = GTLRSheets_Color()
-            color.red = 0.75
-            color.green = 0.47
-            color.blue = 0.8
+        let color = GTLRSheets_Color()
+        color.red = 0.75
+        color.green = 0.47
+        color.blue = 0.8
         
         properties.tabColor = color
         
@@ -131,6 +132,22 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
             }
             print("Done")
         }
+    }
+    
+    func readSpreadsheets(){
+        googleAuthReady
+            .asObservable()
+            .skip(1)
+            .subscribe(onNext: { loggedIn -> Void in
+                guard loggedIn else {return}
+                
+                let query = GTLRSheetsQuery_SpreadsheetsValuesGet.query(withSpreadsheetId: self.spreadsheetsId, range: "'My title'!A2:I10")
+                self.service.executeQuery(query) { (ticket, response, error) in
+                    guard let result = response as? GTLRSheets_ValueRange else {return}
+                    print(response)
+                }
+            })
+            .addDisposableTo(disposeBag)
     }
     
     @IBAction func exportData(_ sender: UIBarButtonItem) {
@@ -235,10 +252,10 @@ extension ViewController: GIDSignInDelegate {
             self.googleAuthReady.onNext(false)
         } else {
             self.signInButton.isHidden = true
-//            self.output.isHidden = false
+            //            self.output.isHidden = false
             self.service.authorizer = user.authentication.fetcherAuthorizer()
             self.googleAuthReady.onNext(true)
-//            listMajors()
+            //            listMajors()
         }
     }
 }
@@ -248,3 +265,4 @@ class TransactionCell: UITableViewCell {
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
 }
+
