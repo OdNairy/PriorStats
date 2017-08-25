@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  Priorstats
-//
-//  Created by Roman Gardukevich on 6/4/17.
-//  Copyright © 2017 Roman Gardukevich. All rights reserved.
-//
-
 import UIKit
 import PromiseKit
 import RxSwift
@@ -40,9 +32,9 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
         
         let signIn = GIDSignIn.sharedInstance()!
         if signIn.hasAuthInKeychain() {
-            signIn.signInSilently()
+//            signIn.signInSilently()
         } else {
-            signIn.signIn()
+//            signIn.signIn()
         }
         
         // Add the sign-in button.
@@ -135,7 +127,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     func readSpreadsheets(){
-        googleAuthReady
+        /*googleAuthReady
             .asObservable()
             .skip(1)
             .subscribe(onNext: { loggedIn -> Void in
@@ -148,6 +140,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
                 }
             })
             .addDisposableTo(disposeBag)
+ */
     }
     
     @IBAction func exportData(_ sender: UIBarButtonItem) {
@@ -215,7 +208,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
             let query = GTLRSheetsQuery_SpreadsheetsBatchUpdate.query(withObject: batchRequest, spreadsheetId: self.spreadsheetsId)
             
             self.service.executeQuery(query, completionHandler: { (_, response, error) in
-                print(response)
+                print("Response was givven")
             })
         }
     }

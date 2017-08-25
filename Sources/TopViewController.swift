@@ -1,11 +1,3 @@
-//
-//  TopViewController.swift
-//  Priorstats
-//
-//  Created by Roman Gardukevich on 27/06/2017.
-//  Copyright © 2017 Roman Gardukevich. All rights reserved.
-//
-
 import UIKit
 import RxSwift
 import SwiftDate

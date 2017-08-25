@@ -83,7 +83,7 @@ open class _TableViewSectionedDataSource
     }
 
     open func _rx_tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        return 0
+        return index
     }
 
     open func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
@@ -217,7 +217,7 @@ open class TableViewSectionedDataSource<S: SectionModelType>
     
     public override init() {
         super.init()
-        self.configureCell = { [weak self] _ in
+        self.configureCell = { [weak self] _, _, _, _ in
             if let strongSelf = self {
                 precondition(false, "There is a minor problem. `cellFactory` property on \(strongSelf) was not set. Please set it manually, or use one of the `rx_bindTo` methods.")
             }
@@ -233,6 +233,7 @@ open class TableViewSectionedDataSource<S: SectionModelType>
     }
     
     open override func _rx_tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard _sectionModels.count > section else { return 0 }
         return _sectionModels[section].items.count
     }
     

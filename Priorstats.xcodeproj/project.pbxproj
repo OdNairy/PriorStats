@@ -19,6 +19,14 @@
 		FE6DB4F61EE489630054802F /* PriorstatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6DB4F31EE4895F0054802F /* PriorstatsTests.swift */; };
 		FE6DB4F91EE48D800054802F /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6DB4F81EE48D800054802F /* R.generated.swift */; };
 		FE6DB4FB1EE48EC70054802F /* PriorbankAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6DB4FA1EE48EC70054802F /* PriorbankAPI.swift */; };
+		FE76110F1F291E5600784D1A /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE76110E1F291E5600784D1A /* DBManager.swift */; };
+		FE7611131F291F8900784D1A /* PriorStats.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FE7611111F291F8900784D1A /* PriorStats.xcdatamodeld */; };
+		FE7611151F29216300784D1A /* DBManager+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7611141F29216300784D1A /* DBManager+User.swift */; };
+		FED1AAB31F291981004B9216 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED1AAB21F291981004B9216 /* LoginController.swift */; };
+		FED1AAB51F2919D7004B9216 /* UserSelectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED1AAB41F2919D7004B9216 /* UserSelectController.swift */; };
+		FED1AAB71F291B9D004B9216 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED1AAB61F291B9D004B9216 /* CoreDataStackManager.swift */; };
+		FED1AAB91F291BBA004B9216 /* QueuedCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED1AAB81F291BBA004B9216 /* QueuedCompletion.swift */; };
+		FED1AABB1F291C8F004B9216 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED1AABA1F291C8F004B9216 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +58,14 @@
 		FE6DB4F31EE4895F0054802F /* PriorstatsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorstatsTests.swift; sourceTree = "<group>"; };
 		FE6DB4F81EE48D800054802F /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		FE6DB4FA1EE48EC70054802F /* PriorbankAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorbankAPI.swift; sourceTree = "<group>"; };
+		FE76110E1F291E5600784D1A /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		FE7611121F291F8900784D1A /* PriorStats.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PriorStats.xcdatamodel; sourceTree = "<group>"; };
+		FE7611141F29216300784D1A /* DBManager+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DBManager+User.swift"; sourceTree = "<group>"; };
+		FED1AAB21F291981004B9216 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		FED1AAB41F2919D7004B9216 /* UserSelectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectController.swift; sourceTree = "<group>"; };
+		FED1AAB61F291B9D004B9216 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
+		FED1AAB81F291BBA004B9216 /* QueuedCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueuedCompletion.swift; sourceTree = "<group>"; };
+		FED1AABA1F291C8F004B9216 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +134,7 @@
 				FE6DB4E31EE4894F0054802F /* LaunchScreen.storyboard */,
 				FE6DB4E51EE4894F0054802F /* Main.storyboard */,
 				FE6DB4E71EE4894F0054802F /* Info.plist */,
+				FE7611111F291F8900784D1A /* PriorStats.xcdatamodeld */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -130,6 +147,10 @@
 				FE6DB4FA1EE48EC70054802F /* PriorbankAPI.swift */,
 				FE46A83B1EF4491F006CDD14 /* Transaction.swift */,
 				FE4A39F91F02EA9C007467D8 /* TopViewController.swift */,
+				FED1AAB21F291981004B9216 /* LoginController.swift */,
+				FED1AAB41F2919D7004B9216 /* UserSelectController.swift */,
+				FE7611101F291E5F00784D1A /* Database */,
+				FED1AABA1F291C8F004B9216 /* User.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -141,6 +162,17 @@
 				FE6DB4F31EE4895F0054802F /* PriorstatsTests.swift */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		FE7611101F291E5F00784D1A /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				FE76110E1F291E5600784D1A /* DBManager.swift */,
+				FE7611141F29216300784D1A /* DBManager+User.swift */,
+				FED1AAB61F291B9D004B9216 /* CoreDataStackManager.swift */,
+				FED1AAB81F291BBA004B9216 /* QueuedCompletion.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,12 +224,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Roman Gardukevich";
 				TargetAttributes = {
 					FE6DB4BB1EE4887D0054802F = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 53APD5F9YQ;
+						DevelopmentTeam = 55H38EFFL8;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -317,12 +349,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FED1AAB91F291BBA004B9216 /* QueuedCompletion.swift in Sources */,
+				FED1AAB51F2919D7004B9216 /* UserSelectController.swift in Sources */,
 				FE4A39FA1F02EA9C007467D8 /* TopViewController.swift in Sources */,
+				FED1AAB71F291B9D004B9216 /* CoreDataStackManager.swift in Sources */,
 				FE6DB4F01EE489580054802F /* ViewController.swift in Sources */,
 				FE6DB4EF1EE489580054802F /* AppDelegate.swift in Sources */,
+				FE7611151F29216300784D1A /* DBManager+User.swift in Sources */,
 				FE6DB4F91EE48D800054802F /* R.generated.swift in Sources */,
+				FE76110F1F291E5600784D1A /* DBManager.swift in Sources */,
+				FE7611131F291F8900784D1A /* PriorStats.xcdatamodeld in Sources */,
 				FE6DB4FB1EE48EC70054802F /* PriorbankAPI.swift in Sources */,
 				FE46A83C1EF4491F006CDD14 /* Transaction.swift in Sources */,
+				FED1AAB31F291981004B9216 /* LoginController.swift in Sources */,
+				FED1AABB1F291C8F004B9216 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,7 +414,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -382,7 +424,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -425,7 +471,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -433,7 +481,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -464,11 +516,11 @@
 			baseConfigurationReference = 79507121D169BDD51DE57650 /* Pods-Priorstats.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = 55H38EFFL8;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.gardukevich.Priorstats;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gardukevich.mobile.Priorstats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -480,11 +532,11 @@
 			baseConfigurationReference = 659A0D0FD7D4C45182586C6C /* Pods-Priorstats.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = 55H38EFFL8;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.gardukevich.Priorstats;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gardukevich.mobile.Priorstats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -552,6 +604,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FE7611111F291F8900784D1A /* PriorStats.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FE7611121F291F8900784D1A /* PriorStats.xcdatamodel */,
+			);
+			currentVersion = FE7611121F291F8900784D1A /* PriorStats.xcdatamodel */;
+			path = PriorStats.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FE6DB4B41EE4887D0054802F /* Project object */;
 }

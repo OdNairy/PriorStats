@@ -1,11 +1,3 @@
-//
-//  PriorbankAPI.swift
-//  Priorstats
-//
-//  Created by Roman Gardukevich on 6/4/17.
-//  Copyright © 2017 Roman Gardukevich. All rights reserved.
-//
-
 import Foundation
 import Alamofire
 import PromiseKit

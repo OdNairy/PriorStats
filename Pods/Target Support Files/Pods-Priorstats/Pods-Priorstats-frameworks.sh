@@ -98,11 +98,10 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/PKHUD/PKHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PromiseKit/PromiseKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/R.swift.Library/Rswift.framework"
-  install_framework "${PODS_ROOT}/Reveal-SDK/RevealServer-8/iOS/RevealServer.framework"
+  install_framework "${PODS_ROOT}/Reveal-SDK/RevealServer-10/iOS/RevealServer.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxCocoa/RxCocoa.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxDataSources/RxDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxSwift/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SideMenu/SideMenu.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwiftDate/SwiftDate.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwiftyJSON/SwiftyJSON.framework"
 fi
@@ -119,7 +118,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/RxCocoa/RxCocoa.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxDataSources/RxDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxSwift/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SideMenu/SideMenu.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwiftDate/SwiftDate.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwiftyJSON/SwiftyJSON.framework"
 fi

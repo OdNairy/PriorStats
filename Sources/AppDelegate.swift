@@ -1,27 +1,23 @@
-//
-//  AppDelegate.swift
-//  Priorstats
-//
-//  Created by Roman Gardukevich on 6/4/17.
-//  Copyright © 2017 Roman Gardukevich. All rights reserved.
-//
-
 import UIKit
 import Google
 import GoogleSignIn
-import SideMenu
+//import SideMenu
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
-    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        var configureError: NSError?
-        GGLContext.sharedInstance().configureWithError(&configureError)
-        assert(configureError == nil, "Error configuring Google services: \(configureError!)")
+//        var configureError: NSError?
+//        GGLContext.sharedInstance().configureWithError(&configureError)
+//        assert(configureError == nil, "Error configuring Google services: \(configureError!)")
+        
+        let _ = DBManager.instance
+        let db = DBManager.instance
+        db.fetchUsers { (users) in
+            print("We read users: \(users)")
+        }
         
         return true
     }

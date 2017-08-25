@@ -165,28 +165,6 @@ extension Reactive where Base: UITableView {
 
 }
 
-extension UITableView {
- 
-    /**
-    Factory method that enables subclasses to implement their own `delegate`.
-    
-    - returns: Instance of delegate proxy that wraps `delegate`.
-    */
-    public override func createRxDelegateProxy() -> RxScrollViewDelegateProxy {
-        return RxTableViewDelegateProxy(parentObject: self)
-    }
-
-    /**
-    Factory method that enables subclasses to implement their own `rx.dataSource`.
-    
-    - returns: Instance of delegate proxy that wraps `dataSource`.
-    */
-    public func createRxDataSourceProxy() -> RxTableViewDataSourceProxy {
-        return RxTableViewDataSourceProxy(parentObject: self)
-    }
-
-}
-
 extension Reactive where Base: UITableView {
     /**
     Reactive wrapper for `dataSource`.
@@ -358,6 +336,29 @@ extension Reactive where Base: UITableView {
             return Observable.just(try view.rx.model(at: indexPath))
         }
 
+        return ControlEvent(events: source)
+    }
+    
+    /**
+     Reactive wrapper for `delegate` message `tableView:commitEditingStyle:forRowAtIndexPath:`.
+     
+     It can be only used when one of the `rx.itemsWith*` methods is used to bind observable sequence,
+     or any other data source conforming to `SectionedViewDataSourceType` protocol.
+     
+     ```
+        tableView.rx.modelDeleted(MyModel.self)
+            .map { ...
+     ```
+     */
+    public func modelDeleted<T>(_ modelType: T.Type) -> ControlEvent<T> {
+        let source: Observable<T> = self.itemDeleted.flatMap { [weak view = self.base as UITableView] indexPath -> Observable<T> in
+            guard let view = view else {
+                return Observable.empty()
+            }
+            
+            return Observable.just(try view.rx.model(at: indexPath))
+        }
+        
         return ControlEvent(events: source)
     }
 

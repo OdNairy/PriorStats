@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="067-PE-vwp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="067-PE-vwp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -25,37 +25,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="alL-Wm-tvx">
-                                    <rect key="frame" x="0.0" y="142" width="375" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="98" width="375" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="cXK-WZ-gAo" detailTextLabel="JVQ-oa-UkX" style="IBUITableViewCellStyleValue1" id="hpK-XF-lSk">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hpK-XF-lSk" id="Ao8-eD-EI8">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cXK-WZ-gAo">
-                                                    <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JVQ-oa-UkX">
-                                                    <rect key="frame" x="301" y="12" width="59" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TranscationCell" rowHeight="70" id="cq1-M4-iY7" customClass="TransactionCell" customModule="Priorstats" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="70"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cq1-M4-iY7" id="hlo-kG-PbR">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
@@ -83,6 +59,7 @@
                                             <constraints>
                                                 <constraint firstItem="qgT-ee-zw8" firstAttribute="top" secondItem="hlo-kG-PbR" secondAttribute="top" constant="8" id="06s-cJ-iui"/>
                                                 <constraint firstItem="evD-iO-WWQ" firstAttribute="leading" secondItem="hlo-kG-PbR" secondAttribute="leading" constant="8" id="2uT-I0-eXV"/>
+                                                <constraint firstItem="1tT-22-hCl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qgT-ee-zw8" secondAttribute="trailing" constant="10" id="MCq-ho-zQc"/>
                                                 <constraint firstAttribute="trailing" secondItem="evD-iO-WWQ" secondAttribute="trailing" constant="8" id="Nd0-eS-hPv"/>
                                                 <constraint firstItem="evD-iO-WWQ" firstAttribute="top" secondItem="qgT-ee-zw8" secondAttribute="bottom" constant="11" id="UGR-wD-Kez"/>
                                                 <constraint firstAttribute="bottom" secondItem="evD-iO-WWQ" secondAttribute="bottom" constant="8.5" id="Xbt-9e-fEb"/>
@@ -179,7 +156,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="vRI-jx-A43">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="vRI-jx-A43">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vRI-jx-A43" id="kid-lh-LLb">
@@ -258,6 +235,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="067-PE-vwp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="C4h-tt-pYE">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>

@@ -14,18 +14,9 @@
 
     import UIKit
 
-    extension UIScrollView {
-        
-        /// Factory method that enables subclasses to implement their own `delegate`.
-        ///
-        /// - returns: Instance of delegate proxy that wraps `delegate`.
-        public func createRxDelegateProxy() -> RxScrollViewDelegateProxy {
-            return RxScrollViewDelegateProxy(parentObject: self)
-        }
-        
-    }
-
     extension Reactive where Base: UIScrollView {
+        public typealias EndZoomEvent = (view: UIView?, scale: CGFloat)
+        public typealias WillEndDraggingEvent = (velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
 
         /// Reactive wrapper for `delegate`.
         ///
@@ -57,6 +48,12 @@
             let source = RxScrollViewDelegateProxy.proxyForObject(base).contentOffsetPublishSubject
             return ControlEvent(events: source)
         }
+        
+        /// Reactive wrapper for delegate method `scrollViewWillBeginDecelerating`
+        public var willBeginDecelerating: ControlEvent<Void> {
+            let source = delegate.methodInvoked(#selector(UIScrollViewDelegate.scrollViewWillBeginDecelerating(_:))).map { _ in }
+            return ControlEvent(events: source)
+        }
     	
     	/// Reactive wrapper for delegate method `scrollViewDidEndDecelerating`
     	public var didEndDecelerating: ControlEvent<Void> {
@@ -64,8 +61,29 @@
     		return ControlEvent(events: source)
     	}
     	
+        /// Reactive wrapper for delegate method `scrollViewWillBeginDragging`
+        public var willBeginDragging: ControlEvent<Void> {
+            let source = delegate.methodInvoked(#selector(UIScrollViewDelegate.scrollViewWillBeginDragging(_:))).map { _ in }
+            return ControlEvent(events: source)
+        }
+        
+        /// Reactive wrapper for delegate method `scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)`
+        public var willEndDragging: ControlEvent<WillEndDraggingEvent> {
+            let source = delegate.methodInvoked(#selector(UIScrollViewDelegate.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)))
+                .map { value -> WillEndDraggingEvent in
+                    let velocity = try castOrThrow(CGPoint.self, value[1])
+                    let targetContentOffsetValue = try castOrThrow(NSValue.self, value[2])
+
+                    guard let rawPointer = targetContentOffsetValue.pointerValue else { throw RxCocoaError.unknown }
+                    let typedPointer = rawPointer.bindMemory(to: CGPoint.self, capacity: MemoryLayout<CGPoint>.size)
+
+                    return (velocity, typedPointer)
+            }
+            return ControlEvent(events: source)
+        }
+        
     	/// Reactive wrapper for delegate method `scrollViewDidEndDragging(_:willDecelerate:)`
-    	public var didEndDragging: ControlEvent<Bool> {
+        public var didEndDragging: ControlEvent<Bool> {
     		let source = delegate.methodInvoked(#selector(UIScrollViewDelegate.scrollViewDidEndDragging(_:willDecelerate:))).map { value -> Bool in
     			return try castOrThrow(Bool.self, value[1])
     		}
@@ -88,6 +106,22 @@
         /// Reactive wrapper for delegate method `scrollViewDidEndScrollingAnimation`
         public var didEndScrollingAnimation: ControlEvent<Void> {
             let source = delegate.methodInvoked(#selector(UIScrollViewDelegate.scrollViewDidEndScrollingAnimation(_:))).map { _ in }
+            return ControlEvent(events: source)
+        }
+        
+        /// Reactive wrapper for delegate method `scrollViewWillBeginZooming(_:with:)`
+        public var willBeginZooming: ControlEvent<UIView?> {
+            let source = delegate.methodInvoked(#selector(UIScrollViewDelegate.scrollViewWillBeginZooming(_:with:))).map { value -> UIView? in
+                return try castOptionalOrThrow(UIView.self, value[1] as AnyObject)
+            }
+            return ControlEvent(events: source)
+        }
+        
+        /// Reactive wrapper for delegate method `scrollViewDidEndZooming(_:with:atScale:)`
+        public var didEndZooming: ControlEvent<EndZoomEvent> {
+            let source = delegate.methodInvoked(#selector(UIScrollViewDelegate.scrollViewDidEndZooming(_:with:atScale:))).map { value -> EndZoomEvent in
+                return (try castOptionalOrThrow(UIView.self, value[1] as AnyObject), try castOrThrow(CGFloat.self, value[2]))
+            }
             return ControlEvent(events: source)
         }
 

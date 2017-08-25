@@ -1,20 +1,10 @@
-//
-//  Transaction.swift
-//  Priorstats
-//
-//  Created by Roman Gardukevich on 6/16/17.
-//  Copyright © 2017 Roman Gardukevich. All rights reserved.
-//
-
 import Foundation
 import SwiftyJSON
-
 
 /// User account in Prior system
 struct UserAccount {
     
 }
-
 
 /// Card or Salary contract
 class Card {
